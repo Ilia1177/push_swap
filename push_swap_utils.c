@@ -30,7 +30,7 @@ void	swap_both(t_list **a, t_list **b)
 {
 	swap(a, 0);
 	swap(b, 0);
-	ft_printf("ss\n");
+	ft_printf("ss");
 }
 
 void	push(t_list **a, t_list **b)
@@ -52,6 +52,7 @@ void	push(t_list **a, t_list **b)
 	ft_printf("p%s\n", tmp->name); 
 }
 
+// First become last
 void	rotate(t_list **stack, int print)
 {
 	t_list *tmp;
@@ -73,6 +74,7 @@ void	rotate_both(t_list **a, t_list **b)
 	ft_printf("rr");
 }
 
+// last become first
 void	r_rotate(t_list **stack, int print)
 {
 	t_list	*tmp;
@@ -91,6 +93,7 @@ void	r_rotate(t_list **stack, int print)
 	tmp->next = NULL;
 	if (print)
 		ft_printf("rr%s\n", (*stack)->name);
+
 }
 
 void	r_rotate_both(t_list **a, t_list **b)
@@ -100,14 +103,43 @@ void	r_rotate_both(t_list **a, t_list **b)
 	ft_printf("rrr");
 }	
 
+t_list	*get_min(t_list *stack)
+{
+	t_list *min;
+
+	min = stack;
+	while (stack)
+	{
+		if (ft_lstcmp(min, stack) > 0)
+			min = stack;
+		stack = stack->next;
+	}
+	return (min);
+}
+
+t_list	*get_max(t_list *stack)
+{
+	t_list *max;
+
+	max = stack;
+	while (stack)
+	{
+		if (ft_lstcmp(max, stack) < 0)
+			max = stack;
+		stack = stack->next;
+	}
+	return (max);
+}
 void	ft_lstprint(t_list *stack)
 {
-	while(stack)
+	if (!stack)
+		return ;
+	while(stack->next)
 	{
 		ft_printf("%d, ", *(int *)(stack->content));
 		stack = stack->next;
 	}
-	ft_printf("\n");
+		ft_printf("%d", *(int *)(stack->content));
 }
 
 void	ft_lstinit(t_list **stack, char **av, int size)
@@ -122,8 +154,54 @@ void	ft_lstinit(t_list **stack, char **av, int size)
 		content = (int *)malloc(sizeof(int));
 		*content = ft_atoi(av[i + 1]);
 		new = ft_lstnew(content);
-		new->name = "a";
+		new->name = ft_strdup("a");
 		ft_lstadd_back(stack, new);
 		i++;
 	}
+}
+
+int	ft_lstcmp(t_list *a, t_list *b)
+{
+	if (!a || !b)
+		return (0);
+	return (*(int *)a->content - *(int *)b->content);
+}
+
+int	is_sorted(t_list *stack, int size)
+{
+	if (!stack)
+		return (0);
+	while (stack->next && size != 0)
+	{
+		if (ft_lstcmp(stack, stack->next) > 0)
+		   return (0);
+		stack = stack->next;
+		size--;
+	}
+	if (size != 1)
+		return (0);
+	return (1);
+}
+
+void	push_last(t_list **a, t_list **b)
+{
+	r_rotate(b, 1);
+	push(a, b);
+}
+
+void	push_all(t_list **a, t_list **b)
+{
+	while (ft_lstsize(*b))
+	{
+		if (ft_lstcmp(*b, *a) > 0)
+			push_back(a, b);
+		else if (ft_lstcmp(*b, *a) < 0)
+			push(a, b);
+	}
+}
+
+void	push_back(t_list **a, t_list **b)
+{
+	push(a, b);
+	rotate(a, 1);
 }
