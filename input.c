@@ -1,76 +1,4 @@
-
 #include "push_swap.h"
-int		ft_isspace(int c)
-{
-	if ((c > 9 && c < 13) || c == ' ')
-		return (1);
-	return (0);
-}
-
-int		check_arg(char *str)
-{
-	int	len;
-	int	i;
-
-	len = ft_strlen(str);
-	i = 0;
-	while (ft_isspace(str[i]))
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-		i++;
-	if (!ft_isdigit(str[i]))
-		return (0);
-	while (i < len)
-	{
-		if (ft_isdigit(str[i]) || ft_isspace(str[i]))
-			i++;
-		else
-			return (0);
-	}
-	return (1);
-}
-
-
-int		check_input(int ac, char **av)
-{
-	int i;
-	int size;
-
-	if (ac > 2)
-	{
-		size = ac - 1;
-		i = 0;
-		while (i < size)
-		{
-			if(!check_arg(av[i + 1]))
-				return (0);
-			i++;
-		}
-		return (size);
-	}
-	else if (ac == 2)
-	{
-		size = 0;
-		i = 0;
-		while (i < (int)ft_strlen(av[1]))
-		{
-			while (ft_isspace(av[1][i]))
-				i++;
-			if (av[1][i] == '+' || av[1][i] == '-')
-				i++;
-			if (!ft_isdigit(av[1][i]))
-				return (0);
-			if (ft_isdigit(av[1][i]))
-				size++;
-			while (ft_isdigit(av[1][i]))
-				i++;
-			while (ft_isspace(av[1][i]))
-				i++;
-		}
-		return (size);
-	}
-	return (0);
-}
 
 int		*sort_tab(int *tab, int size)
 {
@@ -167,24 +95,6 @@ int	make_list(t_list **stack, int size, char **av)
 	free_all(tab, NULL, size);
 	return (size);
 }
-int	free_all(int *tab, char **strings, int size)
-{
-	int i;
-
-	i = 0;
-	if (strings)
-	{
-		while (i < size)
-		{
-			free(strings[i]);
-			i++;
-		}
-		free(strings[i]);
-	}
-	free(strings);
-	free(tab);
-	return (0);
-}
 
 int	make_list_from_str(t_list **stack, int size, char *str)
 {
@@ -220,6 +130,7 @@ int		get_input(t_list **stack, int ac, char **av)
 {
 	int		size;
 
+	size = 0;
 	if (ac > 2)
 	{
 		size = check_input(ac, av);
@@ -236,5 +147,3 @@ int		get_input(t_list **stack, int ac, char **av)
 	}
 	return (0);
 }
-
-

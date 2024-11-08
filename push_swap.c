@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
 int	check_for_flags(int ac, char **av)
 {
 	(void)ac;
@@ -28,6 +29,7 @@ int main(int ac, char **av)
 
 	if (ac <= 1)
 		return (0);
+	// To implement...
 	debug_flag = check_for_flags(ac, av);
 	if (debug_flag)
 	{
@@ -39,9 +41,10 @@ int main(int ac, char **av)
 	if (!size)
 		ft_printf("Error\n");
 	else if (size < 50)
-			mixed_sort2(&a, &b, debug_flag);
+			mixed_sort(&a, &b, debug_flag);
 	else if (size >= 50)
 		radix_sort(&a, &b);
+	ft_lstclear(&a, free);
 //	if (is_sorted(a, size))
 //		ft_printf("-----SORTED-----\n");
 //	ft_printf("STACK A : ");

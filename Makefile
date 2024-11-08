@@ -14,7 +14,13 @@ NAME = push_swap
 
 LIBFT = libft/libft.a
 
-SRCS = push_swap.c push_swap_utils.c sorting.c input.c
+SRCS = push_swap.c\
+	   push_swap_utils.c\
+	   sorting.c\
+	   input.c\
+	   swap_basics.c\
+	   swap_advenced.c\
+	   check.c\
 
 OBJS = $(SRCS:.c=.o)
 
