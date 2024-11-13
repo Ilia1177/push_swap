@@ -74,23 +74,27 @@ void	put_position(t_list *current, int *tab, int size)
 	}
 }
 
-int	make_list(t_list **stack, int size, char **av)
+int	make_list(t_list **stack, int size, char **av, int flag)
 {
 	int *tab;
 	int	i;
+	int j;
 
 	tab = (int *)malloc(sizeof (int) * size);
 	if (!tab)
 		return (0);
-	i = 0;
-	while (i < size)
+	i = 1;
+	j = 0;
+	while (i <= size)
 	{
-		tab[i] = ft_atoi(av[i + 1]);
+		if (flag == i)
+			j++;
+		tab[i - 1] = ft_atoi(av[i + j]);
 		i++;
 	}
 	if (!sort_tab(tab, size))
 		return (free_all(tab, NULL, size));	
-	ft_lstinit(stack, av, size);
+	ft_lstinit(stack, av, size, flag);
 	put_position(*stack, tab, size);
 	free_all(tab, NULL, size);
 	return (size);
@@ -118,7 +122,7 @@ int	make_list_from_str(t_list **stack, int size, char *str)
 		strings[i + 1] = ft_itoa(num);
 		i++;	
 	}
-	ft_lstinit(stack, strings, size);
+	ft_lstinit(stack, strings, size, 0);
 	if (!sort_tab(tab, size))
 		return (free_all(tab, strings, size));
 	put_position(*stack, tab, size);
@@ -126,23 +130,28 @@ int	make_list_from_str(t_list **stack, int size, char *str)
 	return (size);
 }
 
-int		get_input(t_list **stack, int ac, char **av)
+int		get_input(t_list **stack, int ac, char **av, int flag)
 {
 	int		size;
 
-	size = 0;
-	if (ac > 2)
+	*stack = 0;
+	size = ac - 1;
+	if (flag)
+		size--;
+	if (size > 1)
 	{
-		size = check_input(ac, av);
+		size = check_input(ac, av, flag);
 		if (size)
-			size = make_list(stack, size, av);
+			size = make_list(stack, size, av, flag);
 		return (size);
 	}
-	else if (ac == 2)
+	else if (size == 1)
 	{
-		size = check_input(ac, av);
-		if (size)
+		size = check_input(ac, av, flag);
+		if (size && (flag == 2 || !flag))
 			size = make_list_from_str(stack, size, av[1]);
+		if (size && flag == 1)
+			size = make_list_from_str(stack, size, av[2]);
 		return (size);
 	}
 	return (0);

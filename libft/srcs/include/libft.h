@@ -46,6 +46,7 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 //	compare string on n bytes
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strcmp(const char *s1, const char *s2);
 //	look for c in s on n bytes
 void	*ft_memchr(const void *s, int c, size_t n);
 //	compare memory on n bytes

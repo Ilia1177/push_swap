@@ -19,22 +19,28 @@ int	free_all(int *tab, char **strings, int size)
 	return (0);
 }
 
-int		check_args(int ac, char **av)
+// make ac instead of ac - 1
+int		check_args(int ac, char **av, int flag)
 {
 	int	i;
 	int size;
 	char *str;
 
-	i = 0;
-	while (i < ac - 1)
+	i = 1;
+	while (i < ac)
 	{
-		str = av[i + 1];
-		size = check_str(str);
-		if (size != 1)
-			return (0);
+		if (flag != i)
+		{
+			str = av[i];
+			size = check_str(str);
+			if (size != 1)
+				return (0);
+		}
 		i++;
 	}
-	return (i);
+	if (flag)
+		i--;
+	return (--i);
 }
 
 int		check_str(char *str)
@@ -64,18 +70,24 @@ int		check_str(char *str)
 	return (size);
 }
 
-int		check_input(int ac, char **av)
+int		check_input(int ac, char **av, int flag)
 {
 	int size;
 
-	if (ac > 2)
+	size = ac - 1;
+	if (flag)
+		size--;
+	if (size > 1)
 	{
-		size = check_args(ac, av);
+		size = check_args(ac, av, flag);
 		return (size);
 	}
-	else if (ac == 2)
+	else if (size == 1)
 	{
-		size = check_str(av[1]);
+		if (flag == 1)	
+			size = check_str(av[2]);
+		else if (flag == 2 || !flag)
+			size = check_str(av[1]);
 		return (size);
 	}
 	return (0);

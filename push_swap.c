@@ -14,9 +14,15 @@
 
 int	check_for_flags(int ac, char **av)
 {
-	(void)ac;
-	if (!ft_strncmp(av[1], "-d", 3))
-		return (1);
+	int	i;
+
+	i = 1;
+	while (i < ac)
+	{
+		if (!ft_strcmp(av[i], "-d"))
+			return (i);
+		i++;
+	}
 	return (0);
 }
 
@@ -27,29 +33,28 @@ int main(int ac, char **av)
 	int		size;
 	int		debug_flag;
 
+	size = 0;
 	if (ac <= 1)
 		return (0);
-	// To implement...
 	debug_flag = check_for_flags(ac, av);
-	if (debug_flag)
-	{
-		ac -= 1;
-	}
 	a = 0;
 	b = 0;
-	size = get_input(&a, ac, av);
+	size = get_input(&a, ac, av, debug_flag);
 	if (!size)
-		ft_printf("Error\n");
-	else if (size < 50)
-			mixed_sort(&a, &b, debug_flag);
-	else if (size >= 50)
-		radix_sort(&a, &b);
+		write(2, "Error\n", 6);
+	else
+	{
+		if (debug_flag)
+			print_debug(a, b);
+		sort_stack(&a, &b, debug_flag);
+	}
+//	else if (size >= 50)
+//		radix_sort(&a, &b);
+	if (debug_flag)
+	{
+		if (is_sorted(a, size))
+			ft_printf("   ┉┉┉┉┉┉┉ SORTED ┉┉┉┉┉┉\n");
+		print_debug(a, b);
+	}
 	ft_lstclear(&a, free);
-//	if (is_sorted(a, size))
-//		ft_printf("-----SORTED-----\n");
-//	ft_printf("STACK A : ");
-//	ft_lstprint(a);
-//	ft_printf("\nSTACK B : ");
-//	ft_lstprint(b);
 }
-

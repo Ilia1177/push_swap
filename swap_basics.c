@@ -40,17 +40,21 @@ void	ft_lstprint(t_list *stack)
 	ft_printf("%d", *(int *)(stack->content));
 }
 
-void	ft_lstinit(t_list **stack, char **av, int size)
+void	ft_lstinit(t_list **stack, char **av, int size, int flag)
 {
 	int		i;
+	int		j;
 	int		*content;
 	t_list	*new;
 
-	i = 0;
-	while (i < size)
+	j = 0;
+	i = 1;
+	while (i <= size)
 	{
+		if (flag == i)
+			j++;
 		content = (int *)malloc(sizeof(int));
-		*content = ft_atoi(av[i + 1]);
+		*content = ft_atoi(av[i + j]);
 		new = ft_lstnew(content);
 		new->name = "a";
 		ft_lstadd_back(stack, new);

@@ -14,15 +14,10 @@ void	r_rotate_both(t_list **a, t_list **b)
 	ft_printf("rrr\n");
 }
 
-void	push_all(t_list **a, t_list **b)
+void	push_all(t_list **stk, t_list **obj)
 {
-	while (ft_lstsize(*b))
-	{
-		if (ft_lstcmp(*b, *a) > 0)
-			push_back(a, b);
-		else if (ft_lstcmp(*b, *a) < 0)
-			push(a, b);
-	}
+	while (ft_lstsize(*obj))
+		push(stk, obj);
 }
 
 void	push_back(t_list **a, t_list **b)
@@ -30,3 +25,5 @@ void	push_back(t_list **a, t_list **b)
 	push(a, b);
 	rotate(a, 1);
 }
+
+
