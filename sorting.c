@@ -60,7 +60,7 @@ void	print_debug(t_list *a, t_list *b)
 	ft_printf("   ┃ nb of operation : %d\n", count);
 	ft_printf("   ┗┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉┉\n");
 }
-// main test -- OK
+// main test -- OK -> TO CLEAN
 void	mixed_sort(t_list **a, t_list **b, int debug)
 {
 	int			size;
@@ -183,7 +183,7 @@ void	place_in_between(t_list **stk, t_list **obj)
 		push(stk, obj);
 	}
 }
-
+/*
 int		check_pivot(t_list *stack, int index, int pivot)
 {
 	int	value;
@@ -201,6 +201,43 @@ int		check_pivot(t_list *stack, int index, int pivot)
 	{
 		value = *(int *)curr->content;
 		if (value >= index * pivot && value <= (index + 1) * pivot)
+		{
+			if (i <= ft_lstsize(stack) / 2)
+				move = i;
+			else if (i > ft_lstsize(stack) / 2)
+				move = (i - ft_lstsize(stack)) * -1;
+			if (min_move > move)
+			{
+				min_move = move;
+				closest_index = i;
+			}
+		}
+		if (!curr->next && closest_index != -1)
+			return (closest_index);
+		curr = curr->next;
+		i++;
+	}
+	return (0);
+}
+*/
+
+int		check_pivot(t_list *stack, int index, int min_lim)
+{
+	int	value;
+	int	i;
+	int	closest_index;
+	int min_move;
+	int move;
+	t_list *curr;
+
+	curr = stack;
+	i = 1;
+	closest_index = -1;
+	min_move = ft_lstsize(stack);
+	while (curr)
+	{
+		value = *(int *)curr->content;
+		if (value >= min_lim && value <= min_lim + index + 50) 
 		{
 			if (i <= ft_lstsize(stack) / 2)
 				move = i;
@@ -242,8 +279,7 @@ void	bring_index_up(t_list **stk, int index)
 		}
 	}
 }
-
-void	make_run(t_list **a, t_list **b, int cursor,int debug)
+/*void	make_run(t_list **a, t_list **b, int cursor,int debug)
 {
 	int pivot;
 	int i;
@@ -268,8 +304,43 @@ void	make_run(t_list **a, t_list **b, int cursor,int debug)
 		}
 		i++;
 	}		
-}
+}*/
 
+void	make_run(t_list **a, t_list **b, int cursor,int debug)
+{
+	int i;
+	t_list	*curr;
+	int a_value;
+	t_list *min;
+	int min_value;
+
+	(void)cursor;
+	i = 0;
+	while (ft_lstsize(*a))
+	{
+		curr = *a;
+		min = get_min(curr);
+		a_value = *(int*)curr->content;
+		min_value = *(int *)min->content;
+		if (a_value >= min_value  && a_value <= min_value + (50 + i))
+		{
+			i++;
+			place_in_between(b, a);
+		}
+		else
+		{
+			if (i > 50)
+			{
+				i -= 50;
+				bring_index_up(a, get_index(get_min(*a), *a));
+			}
+			bring_index_up(a, check_pivot(*a, i, min_value) - 1);
+		}
+		if (debug)
+			print_debug(*a, *b);
+	}
+	i++;
+}
 void	sort_stack(t_list **a, t_list **b, int debug)
 {
 		int size;
@@ -277,7 +348,7 @@ void	sort_stack(t_list **a, t_list **b, int debug)
 		size = ft_lstsize(*a);
 		if (debug)
 			ft_printf(" --------- sorting array ------\n");
-		if (size < 50)
+		if (size < 10)
 			mixed_sort(a, b, debug);
 		if (size < 300)
 			make_run(a, b, 5, debug);

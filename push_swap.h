@@ -31,19 +31,20 @@ t_list	*get_min(t_list *stack);
 t_list	*get_max(t_list *stack);
 // sorting new;
 
-int	is_sorted(t_list *stack, int size);
-int	is_revsorted(t_list *stack, int size);
-int	ft_lstcmp(t_list *a, t_list *b);
+int		is_sorted(t_list *stack, int size);
+int		is_revsorted(t_list *stack, int size);
+int		ft_lstcmp(t_list *a, t_list *b);
 void	print_debug(t_list *a, t_list *b);
 void	mixed_sort(t_list **a, t_list **b, int debug);
 int		cmp_swap(t_list **a);
-int get_index(t_list *target, t_list *stack);
-int	min_move(t_list *stk, t_list *obj);
+int 	get_index(t_list *target, t_list *stack);
+int		min_move(t_list *stk, t_list *obj);
 void	place_in_between(t_list **stk, t_list **obj);
 int		check_pivot(t_list *stack, int index, int pivot);
 void	bring_index_up(t_list **stk, int index);
 void	make_run(t_list **a, t_list **b, int cursor,int debug);
 void	sort_stack(t_list **a, t_list **b, int debug);
+
 /* sorting save
 int		ft_lstcmp(t_list *a, t_list *b);
 int		is_sorted(t_list *stack, int size);
