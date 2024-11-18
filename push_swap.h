@@ -15,18 +15,24 @@
 
 #include "libft/srcs/include/libft.h"
 
+typedef struct s_count 
+{
+	int		counter;
+	char	**instr;
+}	t_count;
+
 // utils / basics / advenced
 void	ft_lstprint(t_list *stack);
 void	ft_lstinit(t_list **stack, char **av, int size, int flag);
-void	swap(t_list **stack, int print);
-void	swap_both(t_list **a, t_list **b);
-void	push(t_list **a, t_list **b);
-void	rotate(t_list **stack, int print);
-void	rotate_both(t_list **a, t_list **b);
-void	r_rotate(t_list **stack, int print);
-void	push_last(t_list **a, t_list **b);
-void	push_all(t_list **a, t_list **b);
-void	push_back(t_list **a, t_list **b);
+void	swap(t_list **stack, int print, t_count *cpt);
+void	swap_both(t_list **a, t_list **b, t_count *cpt);
+void	push(t_list **a, t_list **b, t_count *cpt, int print);
+void	rotate(t_list **stack, int print, t_count *cpt);
+void	rotate_both(t_list **a, t_list **b, t_count *cpt);
+void	r_rotate(t_list **stack, int print, t_count *cpt);
+void	push_last(t_list **a, t_list **b, t_count *cpt, int print);
+void	push_all(t_list **a, t_list **b, t_count *cpt, int print);
+void	push_back(t_list **a, t_list **b, t_count *cpt, int print);
 t_list	*get_min(t_list *stack);
 t_list	*get_max(t_list *stack);
 // sorting new;
@@ -34,25 +40,23 @@ t_list	*get_max(t_list *stack);
 int		is_sorted(t_list *stack, int size);
 int		is_revsorted(t_list *stack, int size);
 int		ft_lstcmp(t_list *a, t_list *b);
-void	print_debug(t_list *a, t_list *b);
-void	mixed_sort(t_list **a, t_list **b, int debug);
-int		cmp_swap(t_list **a);
+void	print_debug(t_list *a, t_list *b, t_count *cpt);
+void	mixed_sort(t_list **a, t_list **b, int debug, t_count *cpt);
+int		cmp_swap(t_list **a, t_count *cpt);
 int 	get_index(t_list *target, t_list *stack);
 int		min_move(t_list *stk, t_list *obj);
-void	place_in_between(t_list **stk, t_list **obj);
+void	place_in_between(t_list **stk, t_list **obj, t_count *cpt, int print);
 int		check_pivot(t_list *stack, int index, int pivot);
-void	bring_index_up(t_list **stk, int index);
-void	make_run(t_list **a, t_list **b, int cursor,int debug);
-void	sort_stack(t_list **a, t_list **b, int debug);
+void	bring_index_up(t_list **stk, int index, t_count *cpt, int print);
+void	make_run(t_list **a, t_list **b, int cursor,int debug, t_count *cpt);
+void	sort_stack(t_list **a, t_list **b, int debug, t_count *cpt);
 
-/* sorting save
-int		ft_lstcmp(t_list *a, t_list *b);
-int		is_sorted(t_list *stack, int size);
-void	mixed_sort(t_list **a, t_list **b, int debug);
-void	radix_sort(t_list **a, t_list **b);
-void	print_debug(t_list *a, t_list *b);
-void	sort_stack(t_list **a, t_list **b, int debug);
-*/
+
+// trim_instructions
+int		trim_instr(t_count *cpt);
+int		replace_r_rotate(t_count *cpt);
+void	replace_instr(t_count *cpt, int to_delete, int i, char *new_instr);
+int		replace_rotate(t_count *cpt);
 
 // input
 int		check_input(int ac, char **av, int flag);

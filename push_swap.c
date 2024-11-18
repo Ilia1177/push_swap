@@ -16,16 +16,80 @@ int	check_for_flags(int ac, char **av)
 {
 	int	i;
 
-	i = 1;
-	while (i < ac)
-	{
+	i = 0;
+	while (++i < ac)
 		if (!ft_strcmp(av[i], "-d"))
 			return (i);
-		i++;
-	}
 	return (0);
 }
 
+t_count	*count_instructions(t_list **a, t_list **b, int flag)
+{
+	int	instr_nb;
+	t_count *counter;
+
+	counter = malloc(sizeof(t_count));
+	counter->counter = 0;
+	if (flag)
+		print_debug(*a, *b, counter);
+	sort_stack(a, b, 0, counter);
+	instr_nb = counter->counter;
+	if (flag)
+		ft_printf("\n----- count instructions = %d\n", instr_nb);
+	counter->instr = (char **)ft_calloc(sizeof (char *), instr_nb);
+	counter->counter = 0;
+	ft_lstclear(a, free);
+	ft_lstclear(b, free);
+	a = 0;
+	b = 0;
+	return (counter);
+}
+
+int	print_instructions(t_count *counter, int print)
+{
+	int	i;
+   	int	deleted_instr;
+
+	i = 0;
+	deleted_instr = trim_instr(counter);
+	if (print)
+		ft_printf("----- finals instructions\n");
+	while (i < counter->counter)
+	{
+		if (print && !counter->instr[i][0])
+			ft_printf("----- INSTRUCTION REPLACED\n");
+		else if (counter->instr[i][0])
+			ft_printf("%s", counter->instr[i]);
+		free(counter->instr[i]);
+		i++;
+	}
+	free(counter->instr);
+	if (print)
+		ft_printf("----- %d deleted on %d\n", deleted_instr, counter->counter);
+	return (counter->counter - deleted_instr);
+}
+
+void	process(t_list **a, t_list **b, int ac, char **av, int debug_flag)
+{
+	t_count *counter;
+	int		size;
+
+	counter = count_instructions(a, b, 0);
+	get_input(a, ac, av, debug_flag);
+	size = ft_lstsize(*a);
+	if (debug_flag)
+		sort_stack(a, b, 2, counter);
+	else
+		sort_stack(a, b, 1, counter);
+	if (debug_flag && is_sorted(*a, size))
+		ft_printf("----- stack sorted !\n");
+	counter->counter = print_instructions(counter, debug_flag);
+	if (debug_flag)
+		print_debug(*a, *b, counter);
+	free(counter);
+}
+
+//throw error
 int main(int ac, char **av)
 {
 	t_list	*a;
@@ -33,7 +97,6 @@ int main(int ac, char **av)
 	int		size;
 	int		debug_flag;
 
-	size = 0;
 	if (ac <= 1)
 		return (0);
 	debug_flag = check_for_flags(ac, av);
@@ -43,18 +106,8 @@ int main(int ac, char **av)
 	if (!size)
 		write(2, "Error\n", 6);
 	else
-	{
-		if (debug_flag)
-			print_debug(a, b);
-		sort_stack(&a, &b, debug_flag);
-	}
-//	else if (size >= 50)
-//		radix_sort(&a, &b);
-	if (debug_flag)
-	{
-		if (is_sorted(a, size))
-			ft_printf("   ┉┉┉┉┉┉┉ SORTED ┉┉┉┉┉┉\n");
-		print_debug(a, b);
-	}
+		process(&a, &b, ac, av, debug_flag);
 	ft_lstclear(&a, free);
+	ft_lstclear(&b, free);
+	return (0);
 }

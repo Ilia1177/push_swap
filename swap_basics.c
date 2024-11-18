@@ -56,14 +56,14 @@ void	ft_lstinit(t_list **stack, char **av, int size, int flag)
 		content = (int *)malloc(sizeof(int));
 		*content = ft_atoi(av[i + j]);
 		new = ft_lstnew(content);
-		new->name = "a";
+		new->name = "a\n";
 		ft_lstadd_back(stack, new);
 		i++;
 	}
 }
 
-void	push_last(t_list **a, t_list **b)
+void	push_last(t_list **a, t_list **b, t_count *cpt, int print)
 {
-	r_rotate(b, 1);
-	push(a, b);
+	r_rotate(b, print, cpt);
+	push(a, b, cpt, print);
 }

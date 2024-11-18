@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	swap(t_list **stack, int print)
+void	swap(t_list **stack, int print, t_count *cpt)
 {
 	t_list	*tmp;
 
@@ -22,18 +22,17 @@ void	swap(t_list **stack, int print)
 	(*stack)->next = tmp->next;
 	tmp->next = *stack;
 	*stack = tmp;
-	if (print)
+	cpt->counter++;
+	if (print > 0)
+		cpt->instr[cpt->counter - 1] = ft_strjoin("s", (*stack)->name);
+	if (print >= 2)
+	{
 		ft_printf("s%s\n", (*stack)->name);
+		print_debug(*stack, NULL, cpt);
+	}
 }
 
-void	swap_both(t_list **a, t_list **b)
-{
-	swap(a, 0);
-	swap(b, 0);
-	ft_printf("ss");
-}
-
-void	push(t_list **a, t_list **b)
+void	push(t_list **a, t_list **b, t_count *cpt, int print)
 {
 	t_list	*tmp;
 
@@ -45,15 +44,22 @@ void	push(t_list **a, t_list **b)
 	else
 		*b = NULL;
 	if (tmp->name[0] == 'a')
-		tmp->name = "b";
+		tmp->name = "b\n";
 	else if (tmp->name[0] == 'b')
-		tmp->name = "a";
+		tmp->name = "a\n";
 	ft_lstadd_front(a, tmp);
-	ft_printf("p%s\n", tmp->name);
+	cpt->counter++;
+	if (print > 0)
+		cpt->instr[cpt->counter - 1] = ft_strjoin("p", (*a)->name);
+	if (print >= 2)
+	{
+		ft_printf("p%s\n", (*a)->name);
+		print_debug(*a, *b, cpt);
+	}
 }
 
 // First become last
-void	rotate(t_list **stack, int print)
+void	rotate(t_list **stack, int print, t_count *cpt)
 {
 	t_list	*tmp;
 
@@ -63,12 +69,18 @@ void	rotate(t_list **stack, int print)
 	*stack = (*stack)->next;
 	tmp->next = NULL;
 	ft_lstadd_back(stack, tmp);
-	if (print)
+	cpt->counter++;
+	if (print > 0)
+		cpt->instr[cpt->counter - 1] = ft_strjoin("r", (*stack)->name);
+	if (print >= 2)
+	{
 		ft_printf("r%s\n", (*stack)->name);
+		print_debug(*stack, NULL, cpt);
+	}
 }
 
 // Last become first
-void	r_rotate(t_list **stack, int print)
+void	r_rotate(t_list **stack, int print, t_count *cpt)
 {
 	t_list	*tmp;
 	int		size;
@@ -84,6 +96,12 @@ void	r_rotate(t_list **stack, int print)
 		size--;
 	}
 	tmp->next = NULL;
-	if (print)
+	cpt->counter++;
+	if (print > 0)
+		cpt->instr[cpt->counter - 1] = ft_strjoin("rr", (*stack)->name);
+	if (print >= 2)
+	{
 		ft_printf("rr%s\n", (*stack)->name);
+		print_debug(*stack, NULL, cpt);
+	}
 }

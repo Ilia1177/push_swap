@@ -1,29 +1,31 @@
 #include "push_swap.h"
 
-void	rotate_both(t_list **a, t_list **b)
+void	rotate_both(t_list **a, t_list **b, t_count *cpt)
 {
-	rotate(a, 0);
-	rotate(b, 0);
+	cpt->counter++;
+	rotate(a, 0, cpt);
+	rotate(b, 0, cpt);
 	ft_printf("rr\n");
 }
 
-void	r_rotate_both(t_list **a, t_list **b)
-{
-	r_rotate(a, 0);
-	r_rotate(b, 0);
+void	r_rotate_both(t_list **a, t_list **b, t_count *cpt)
+{  
+   	cpt->counter++;
+	r_rotate(a, -1, cpt);
+	r_rotate(b, -1, cpt);
 	ft_printf("rrr\n");
 }
 
-void	push_all(t_list **stk, t_list **obj)
+void	push_all(t_list **stk, t_list **obj, t_count *cpt, int print)
 {
 	while (ft_lstsize(*obj))
-		push(stk, obj);
+		push(stk, obj, cpt, print);
 }
 
-void	push_back(t_list **a, t_list **b)
+void	push_back(t_list **a, t_list **b, t_count *count, int print)
 {
-	push(a, b);
-	rotate(a, 1);
+	push(a, b, count, print);
+	rotate(a, 1, count);
 }
 
 

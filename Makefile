@@ -21,6 +21,7 @@ SRCS = push_swap.c\
 	   swap_basics.c\
 	   swap_advenced.c\
 	   check.c\
+	   trim_instructions.c\
 
 OBJS = $(SRCS:.c=.o)
 
