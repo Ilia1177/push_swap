@@ -6,7 +6,7 @@
 /*   By: npolack <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 12:24:50 by npolack           #+#    #+#             */
-/*   Updated: 2024/10/31 19:13:58 by npolack          ###   ########.fr       */
+/*   Updated: 2024/11/28 14:28:19 by npolack          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ int	check_for_flags(int ac, char **av)
 
 t_count	*count_instructions(t_list **a, t_list **b, int flag)
 {
-	int	instr_nb;
-	t_count *counter;
+	int		instr_nb;
+	t_count	*counter;
 
 	counter = malloc(sizeof(t_count));
+	if (!counter)
+		return (0);
 	counter->counter = 0;
 	if (flag)
 		print_debug(*a, *b, counter);
@@ -37,6 +39,8 @@ t_count	*count_instructions(t_list **a, t_list **b, int flag)
 	if (flag)
 		ft_printf("\n----- count instructions = %d\n", instr_nb);
 	counter->instr = (char **)ft_calloc(sizeof (char *), instr_nb);
+	if (!counter->instr)
+		return (0);
 	counter->counter = 0;
 	ft_lstclear(a, free);
 	ft_lstclear(b, free);
@@ -48,7 +52,7 @@ t_count	*count_instructions(t_list **a, t_list **b, int flag)
 int	print_instructions(t_count *counter, int print)
 {
 	int	i;
-   	int	deleted_instr;
+	int	deleted_instr;
 
 	i = 0;
 	deleted_instr = trim_instr(counter);
@@ -69,17 +73,14 @@ int	print_instructions(t_count *counter, int print)
 	return (counter->counter - deleted_instr);
 }
 
-void	process(t_list **a, t_list **b, int ac, char **av, int debug_flag)
+void	process(t_list **a, t_list **b, int debug_flag, t_count *counter)
 {
-	t_count *counter;
 	int		size;
 
-	counter = count_instructions(a, b, 0);
-	get_input(a, ac, av, debug_flag);
 	size = ft_lstsize(*a);
-	if (debug_flag)
+	if (debug_flag && !is_sorted(*a, ft_lstsize(*a)))
 		sort_stack(a, b, 2, counter);
-	else
+	else if (!is_sorted(*a, ft_lstsize(*a)))
 		sort_stack(a, b, 1, counter);
 	if (debug_flag && is_sorted(*a, size))
 		ft_printf("----- stack sorted !\n");
@@ -87,15 +88,17 @@ void	process(t_list **a, t_list **b, int ac, char **av, int debug_flag)
 	if (debug_flag)
 		print_debug(*a, *b, counter);
 	free(counter);
+	ft_lstclear(a, free);
+	ft_lstclear(b, free);
 }
 
-//throw error
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_list	*a;
 	t_list	*b;
 	int		size;
 	int		debug_flag;
+	t_count	*counter;
 
 	if (ac <= 1)
 		return (0);
@@ -106,8 +109,12 @@ int main(int ac, char **av)
 	if (!size)
 		write(2, "Error\n", 6);
 	else
-		process(&a, &b, ac, av, debug_flag);
-	ft_lstclear(&a, free);
-	ft_lstclear(&b, free);
+	{
+		counter = count_instructions(&a, &b, 0);
+		if (!counter)
+			return (0);
+		get_input(&a, ac, av, debug_flag);
+		process(&a, &b, debug_flag, counter);
+	}
 	return (0);
 }

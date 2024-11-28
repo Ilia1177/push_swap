@@ -6,7 +6,7 @@
 #    By: npolack <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/30 13:32:41 by npolack           #+#    #+#              #
-#    Updated: 2024/10/30 19:26:30 by npolack          ###   ########.fr        #
+#    Updated: 2024/11/28 16:43:36 by npolack          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,11 +17,15 @@ LIBFT = libft/libft.a
 SRCS = push_swap.c\
 	   push_swap_utils.c\
 	   sorting.c\
+	   sorting2.c\
+	   sorting3.c\
 	   input.c\
 	   swap_basics.c\
 	   swap_advenced.c\
 	   check.c\
 	   trim_instructions.c\
+	   trim_instructions2.c\
+	   make_list.c\
 
 OBJS = $(SRCS:.c=.o)
 

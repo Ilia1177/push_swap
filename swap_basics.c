@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   swap_basics.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: npolack <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/28 15:50:35 by npolack           #+#    #+#             */
+/*   Updated: 2024/11/28 17:11:22 by npolack          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 t_list	*get_min(t_list *stack)
@@ -40,11 +52,11 @@ void	ft_lstprint(t_list *stack)
 	ft_printf("%d", *(int *)(stack->content));
 }
 
-void	ft_lstinit(t_list **stack, char **av, int size, int flag)
+int	ft_lstinit(t_list **stack, char **av, int size, int flag)
 {
-	int		i;
-	int		j;
-	int		*content;
+	int			i;
+	int			j;
+	int	*content;
 	t_list	*new;
 
 	j = 0;
@@ -60,6 +72,7 @@ void	ft_lstinit(t_list **stack, char **av, int size, int flag)
 		ft_lstadd_back(stack, new);
 		i++;
 	}
+	return (1);
 }
 
 void	push_last(t_list **a, t_list **b, t_count *cpt, int print)

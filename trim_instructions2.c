@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   trim_instructions2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npolack <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 19:27:40 by npolack           #+#    #+#             */
-/*   Updated: 2024/11/28 17:07:24 by npolack          ###   ########.fr       */
+/*   Created: 2024/11/28 16:53:45 by npolack           #+#    #+#             */
+/*   Updated: 2024/11/28 16:56:22 by npolack          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long int ft_atoi(const char *nptr)
-{
-	long int	result;
-	int			sign;
+#include "push_swap.h"
 
-	sign = 1;
-	result = 0;
-	while (*nptr)
-	{
-		while (*nptr == 32 || (*nptr >= 9 && *nptr <= 13))
-			nptr++;
-		if (*nptr == '-')
-		{
-			sign *= -1;
-			nptr++;
-		}
-		else if (*nptr == '+')
-			nptr++;
-		while (*nptr >= '0' && *nptr <= '9')
-		{
-			result = result * 10 + (*nptr) - '0';
-			nptr++;
-		}
-		return (result * sign);
-	}
-	return (0);
+int	replace_rotate(t_count *cpt)
+{
+	int		count;
+	int		i;
+	int		to_delete;
+
+	i = -1;
+	count = 0;
+	to_delete = -1;
+	while (++i < cpt->counter)
+		check_n_replace_r(cpt, &i, &to_delete, &count);
+	return (count);
+}
+
+int	trim_instr(t_count *cpt)
+{
+	int	count;
+
+	count = replace_r_rotate(cpt);
+	count += replace_rotate(cpt);
+	return (count);
 }

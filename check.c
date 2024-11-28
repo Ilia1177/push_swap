@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: npolack <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/28 17:30:45 by npolack           #+#    #+#             */
+/*   Updated: 2024/11/28 17:30:58 by npolack          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	free_all(int *tab, char **strings, int size)
@@ -19,12 +31,11 @@ int	free_all(int *tab, char **strings, int size)
 	return (0);
 }
 
-// make ac instead of ac - 1
 int		check_args(int ac, char **av, int flag)
 {
-	int	i;
-	int size;
-	char *str;
+	int		i;
+	int		size;
+	char	*str;
 
 	i = 1;
 	while (i < ac)
