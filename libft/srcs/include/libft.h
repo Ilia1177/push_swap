@@ -53,7 +53,7 @@ void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 //	find little in big on len bytes
 char	*ft_strnstr(const char *big, const char *little, size_t len);
-long int		ft_atoi(const char *nptr);
+int		ft_atoi(const char *nptr);
 char	*ft_strdup(const char *s);
 void	*ft_calloc(size_t nmemb, size_t size);
 

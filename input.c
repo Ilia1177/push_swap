@@ -42,10 +42,10 @@ int	*sort_tab(int *tab, int size)
 // IMPLEMENT OVERFLOW PROTECT !!
 int	*str_to_tab(int	*tab, char *str)
 {
-	int			len;
-	long int	num;
-	int			j;
-	int			i;
+	int	len;
+	int	num;
+	int	j;
+	int	i;
 
 	len = ft_strlen(str);
 	i = 0;
@@ -54,6 +54,8 @@ int	*str_to_tab(int	*tab, char *str)
 	{
 		if (ft_isdigit(str[i]) || str[i] == '+' || str[i] == '-')
 		{
+			if (!int_check(str + i))
+				return (NULL);
 			num = ft_atoi(str + i); //here
 			if (str[i] == '+')
 				i++;

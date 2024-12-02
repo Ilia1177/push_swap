@@ -72,5 +72,6 @@ int		check_str(char *str);
 int		check_args(int ac, char **av, int flag);
 int		ft_isspace(int c);
 int		make_list_from_str(t_list **stack, int size, char *str);
+int		int_check(char *nptr);
 
 #endif
