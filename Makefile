@@ -6,7 +6,7 @@
 #    By: npolack <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/30 13:32:41 by npolack           #+#    #+#              #
-#    Updated: 2024/11/28 16:43:36 by npolack          ###   ########.fr        #
+#    Updated: 2024/12/03 16:08:56 by npolack          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ OBJS = $(SRCS:.c=.o)
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -f
 
@@ -52,6 +52,7 @@ clean	:
 
 fclean	: clean
 	make fclean -C libft
+	$(RM) $(NAME)
 
 re		: fclean all
 
