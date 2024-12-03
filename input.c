@@ -6,7 +6,7 @@
 /*   By: npolack <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 11:20:52 by npolack           #+#    #+#             */
-/*   Updated: 2024/11/28 17:42:32 by npolack          ###   ########.fr       */
+/*   Updated: 2024/12/03 15:30:56 by npolack          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	*sort_tab(int *tab, int size)
 	int	i;
 	int	j;
 
+	if (!tab)
+		return (0);
 	i = 0;
 	while (i < size)
 	{
@@ -39,7 +41,6 @@ int	*sort_tab(int *tab, int size)
 	return (tab);
 }
 
-// IMPLEMENT OVERFLOW PROTECT !!
 int	*str_to_tab(int	*tab, char *str)
 {
 	int	len;
@@ -56,7 +57,7 @@ int	*str_to_tab(int	*tab, char *str)
 		{
 			if (!int_check(str + i))
 				return (NULL);
-			num = ft_atoi(str + i); //here
+			num = ft_atoi(str + i);
 			if (str[i] == '+')
 				i++;
 			i += get_intlen(num, 10);
@@ -89,7 +90,6 @@ void	put_position(t_list *current, int *tab, int size)
 	}
 }
 
-//IMPLEMENT OVERFLOW PROTECT
 int	get_input(t_list **stack, int ac, char **av, int flag)
 {
 	int		size;
@@ -102,16 +102,16 @@ int	get_input(t_list **stack, int ac, char **av, int flag)
 	{
 		size = check_input(ac, av, flag);
 		if (size)
-			size = make_list(stack, size, av, flag); //here
+			size = make_list(stack, size, av, flag);
 		return (size);
 	}
 	else if (size == 1)
 	{
 		size = check_input(ac, av, flag);
 		if (size && (flag == 2 || !flag))
-			size = make_list_from_str(stack, size, av[1]); //here
+			size = make_list_from_str(stack, size, av[1]);
 		if (size && flag == 1)
-			size = make_list_from_str(stack, size, av[2]); //here
+			size = make_list_from_str(stack, size, av[2]);
 		return (size);
 	}
 	return (0);

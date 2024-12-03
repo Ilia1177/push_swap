@@ -6,11 +6,12 @@
 /*   By: npolack <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 11:30:01 by npolack           #+#    #+#             */
-/*   Updated: 2024/11/28 17:42:32 by npolack          ###   ########.fr       */
+/*   Updated: 2024/12/03 15:34:46 by npolack          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
 int	int_check(char *nptr)
 {
 	long int	result;
@@ -36,7 +37,7 @@ int	int_check(char *nptr)
 	}
 	return (1);
 }
-// IMPLEMENT OVERFLOW PROTECT
+
 int	make_list(t_list **stack, int size, char **av, int flag)
 {
 	int	*tab;
@@ -54,7 +55,7 @@ int	make_list(t_list **stack, int size, char **av, int flag)
 			j++;
 		if (!int_check(av[i + j]))
 			return (0);
-		tab[i - 1] = ft_atoi(av[i + j]); //here
+		tab[i - 1] = ft_atoi(av[i + j]);
 		i++;
 	}
 	if (!sort_tab(tab, size))
@@ -68,13 +69,11 @@ int	make_list(t_list **stack, int size, char **av, int flag)
 int	make_list_from_str(t_list **stack, int size, char *str)
 {
 	int		*tab;
-	char	**strings;
 	int		num;
 	int		i;
+	char	**strings;
 
 	tab = (int *)malloc(size * sizeof (int));
-	if (!tab)
-		return (0);
 	tab = str_to_tab(tab, str);
 	if (!tab)
 		return (0);

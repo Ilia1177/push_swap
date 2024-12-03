@@ -6,11 +6,11 @@
 /*   By: npolack <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:27:40 by npolack           #+#    #+#             */
-/*   Updated: 2024/11/28 17:07:24 by npolack          ###   ########.fr       */
+/*   Updated: 2024/12/03 15:27:55 by npolack          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
 	int	result;
 	int	sign;

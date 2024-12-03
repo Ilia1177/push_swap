@@ -6,7 +6,7 @@
 /*   By: npolack <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 17:30:45 by npolack           #+#    #+#             */
-/*   Updated: 2024/11/28 17:30:58 by npolack          ###   ########.fr       */
+/*   Updated: 2024/12/03 15:32:58 by npolack          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	free_all(int *tab, char **strings, int size)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (strings)
@@ -31,7 +31,7 @@ int	free_all(int *tab, char **strings, int size)
 	return (0);
 }
 
-int		check_args(int ac, char **av, int flag)
+int	check_args(int ac, char **av, int flag)
 {
 	int		i;
 	int		size;
@@ -54,11 +54,11 @@ int		check_args(int ac, char **av, int flag)
 	return (--i);
 }
 
-int		check_str(char *str)
+int	check_str(char *str)
 {
 	int	size;
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	len = ft_strlen(str);
 	size = 0;
@@ -81,9 +81,9 @@ int		check_str(char *str)
 	return (size);
 }
 
-int		check_input(int ac, char **av, int flag)
+int	check_input(int ac, char **av, int flag)
 {
-	int size;
+	int	size;
 
 	size = ac - 1;
 	if (flag)
@@ -95,7 +95,7 @@ int		check_input(int ac, char **av, int flag)
 	}
 	else if (size == 1)
 	{
-		if (flag == 1)	
+		if (flag == 1)
 			size = check_str(av[2]);
 		else if (flag == 2 || !flag)
 			size = check_str(av[1]);
@@ -103,4 +103,3 @@ int		check_input(int ac, char **av, int flag)
 	}
 	return (0);
 }
-

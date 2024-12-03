@@ -6,7 +6,7 @@
 /*   By: npolack <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:50:35 by npolack           #+#    #+#             */
-/*   Updated: 2024/11/28 17:11:22 by npolack          ###   ########.fr       */
+/*   Updated: 2024/12/03 15:25:37 by npolack          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	ft_lstprint(t_list *stack)
 
 int	ft_lstinit(t_list **stack, char **av, int size, int flag)
 {
-	int			i;
-	int			j;
-	int	*content;
+	int		i;
+	int		j;
+	int		*content;
 	t_list	*new;
 
 	j = 0;
