@@ -6,7 +6,7 @@
 /*   By: npolack <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 19:18:29 by npolack           #+#    #+#             */
-/*   Updated: 2024/12/03 16:03:26 by npolack          ###   ########.fr       */
+/*   Updated: 2024/12/03 17:14:31 by npolack          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ int		check_args(int ac, char **av, int flag);
 int		ft_isspace(int c);
 int		make_list_from_str(t_list **stack, int size, char *str);
 int		int_check(char *nptr);
+int		*free_tab(int *tab);
 
 #endif

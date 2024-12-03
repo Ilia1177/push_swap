@@ -6,7 +6,7 @@
 /*   By: npolack <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 11:30:01 by npolack           #+#    #+#             */
-/*   Updated: 2024/12/03 15:34:46 by npolack          ###   ########.fr       */
+/*   Updated: 2024/12/03 17:35:34 by npolack          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	make_list(t_list **stack, int size, char **av, int flag)
 		if (flag == i)
 			j++;
 		if (!int_check(av[i + j]))
-			return (0);
+			return (free_all(tab, NULL, 0));
 		tab[i - 1] = ft_atoi(av[i + j]);
 		i++;
 	}
@@ -66,30 +66,38 @@ int	make_list(t_list **stack, int size, char **av, int flag)
 	return (size);
 }
 
+int	init_strings(char **strings, int *tab, int size)
+{
+	int	i;
+
+	i = -1;
+	strings[0] = ft_strdup("");
+	while (++i < size)
+	{
+		strings[i + 1] = ft_itoa(tab[i]);
+		if (!strings[i + 1] || !int_check(strings[i + 1]))
+			return (free_all(tab, strings, i + 1));
+	}
+	return (1);
+}
+
 int	make_list_from_str(t_list **stack, int size, char *str)
 {
 	int		*tab;
-	int		num;
-	int		i;
 	char	**strings;
 
 	tab = (int *)malloc(size * sizeof (int));
 	tab = str_to_tab(tab, str);
 	if (!tab)
-		return (0);
+		return (free_all(tab, NULL, 0));
 	strings = (char **)malloc(sizeof (char *) * (size + 1));
 	if (!strings)
 		return (free_all(tab, strings, size));
-	i = -1;
-	strings[0] = ft_strdup("");
-	while (++i < size)
-	{
-		num = tab[i];
-		strings[i + 1] = ft_itoa(num);
-	}
-	ft_lstinit(stack, strings, size, 0);
+	if (!init_strings(strings, tab, size))
+		return (free_all(tab, strings, size));
 	if (!sort_tab(tab, size))
 		return (free_all(tab, strings, size));
+	ft_lstinit(stack, strings, size, 0);
 	put_position(*stack, tab, size);
 	free_all(tab, strings, size);
 	return (size);

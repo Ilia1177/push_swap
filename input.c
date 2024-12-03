@@ -6,7 +6,7 @@
 /*   By: npolack <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 11:20:52 by npolack           #+#    #+#             */
-/*   Updated: 2024/12/03 15:30:56 by npolack          ###   ########.fr       */
+/*   Updated: 2024/12/03 17:35:32 by npolack          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	*sort_tab(int *tab, int size)
 		while (j < size)
 		{
 			if (tab[i] == tab[j])
-				return (0);
+				return (NULL);
 			if (tab[i] > tab[j])
 			{
 				tmp = tab[i];
@@ -39,6 +39,13 @@ int	*sort_tab(int *tab, int size)
 		i++;
 	}
 	return (tab);
+}
+
+int	*free_tab(int *tab)
+{
+	free(tab);
+	tab = 0;
+	return (NULL);
 }
 
 int	*str_to_tab(int	*tab, char *str)
@@ -56,13 +63,12 @@ int	*str_to_tab(int	*tab, char *str)
 		if (ft_isdigit(str[i]) || str[i] == '+' || str[i] == '-')
 		{
 			if (!int_check(str + i))
-				return (NULL);
+				return (free_tab(tab));
 			num = ft_atoi(str + i);
 			if (str[i] == '+')
 				i++;
 			i += get_intlen(num, 10);
-			tab[j] = num;
-			j++;
+			tab[j++] = num;
 		}
 		while (ft_isspace(str[i]))
 			i++;
