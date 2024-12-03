@@ -6,7 +6,7 @@
 /*   By: npolack <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 19:18:29 by npolack           #+#    #+#             */
-/*   Updated: 2024/11/28 17:26:16 by npolack          ###   ########.fr       */
+/*   Updated: 2024/12/03 16:03:26 by npolack          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ t_list	*get_max(t_list *stack);
 
 int		move_calc(int index, int size);
 int		is_sorted(t_list *stack, int size);
-int		is_revsorted(t_list *stack, int size);
 int		ft_lstcmp(t_list *a, t_list *b);
 void	print_debug(t_list *a, t_list *b, t_count *cpt);
 void	mixed_sort(t_list **a, t_list **b, int debug, t_count *cpt);
